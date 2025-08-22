@@ -1,8 +1,8 @@
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
-.WriteTo.Console()
-.CreateLogger();
+  .WriteTo.Console()
+  .CreateLogger();
 
 try
 {
@@ -20,6 +20,10 @@ try
     });
 
     var app = builder.Build();
+
+    // Fix: Ensure the Serilog.AspNetCore package is installed to use this extension method
+    app.UseSerilogRequestLogging(); // This requires the Serilog.AspNetCore package
+
     app.MapGet("/", () => "Hello World!");
 
     app.Run();
