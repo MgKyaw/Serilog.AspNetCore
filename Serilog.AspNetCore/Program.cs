@@ -5,6 +5,14 @@ Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
     .Enrich.FromLogContext()
     .WriteTo.Console()
+    .WriteTo.File(
+       System.IO.Path.Combine(Environment.GetEnvironmentVariable("HOME"), "LogFiles", "Application", "diagnostics.txt"),
+       rollingInterval: RollingInterval.Day,
+       fileSizeLimitBytes: 10 * 1024 * 1024,
+       retainedFileCountLimit: 2,
+       rollOnFileSizeLimit: true,
+       shared: true,
+       flushToDiskInterval: TimeSpan.FromSeconds(1))
     .CreateBootstrapLogger();
 
 try
