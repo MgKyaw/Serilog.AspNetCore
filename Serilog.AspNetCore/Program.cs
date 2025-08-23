@@ -21,15 +21,6 @@ try
 
     var builder = WebApplication.CreateBuilder(args);
 
-    //// Fix: Use AddSerilog and configure Serilog explicitly    
-    //builder.Host.UseSerilog((context, services, configuration) =>
-    //{
-    //    // Fix: Ensure Serilog.Settings.Configuration package is installed  
-    //    configuration.ReadFrom.Configuration(context.Configuration)
-    //                 .ReadFrom.Services(services)
-    //                 .WriteTo.Console();
-    //});
-
     builder.Services.AddSerilog((services, lc) => lc
     .ReadFrom.Configuration(builder.Configuration)
     .ReadFrom.Services(services)
